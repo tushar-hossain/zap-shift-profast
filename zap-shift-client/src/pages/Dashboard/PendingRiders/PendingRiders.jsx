@@ -31,7 +31,7 @@ export default function PendingRiders() {
     return <span>Error: {error.message}</span>;
   }
 
-  const handleApprove = async (riderId) => {
+  const handleApprove = async (riderId, email) => {
     const confirm = await Swal.fire({
       title: "Approve Rider?",
       text: "This rider will be marked as active.",
@@ -44,6 +44,7 @@ export default function PendingRiders() {
       try {
         const res = await axiosSecure.patch(`/riders/${riderId}`, {
           status: "active",
+          email,
         });
         if (res.data.modifiedCount) {
           Swal.fire("Approved!", "Rider is now active.", "success");
@@ -120,7 +121,7 @@ export default function PendingRiders() {
                   </button>
                   <button
                     className="btn btn-sm btn-success"
-                    onClick={() => handleApprove(rider._id)}
+                    onClick={() => handleApprove(rider._id, rider.email)}
                   >
                     <FaCheck />
                   </button>

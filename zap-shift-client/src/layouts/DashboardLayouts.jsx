@@ -10,9 +10,14 @@ import {
   MdPerson,
   MdCheckCircle,
   MdHourglassEmpty,
+  MdPending,
 } from "react-icons/md";
+import { FaUserShield, FaMotorcycle } from "react-icons/fa";
+import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayouts = () => {
+  const { role, authLoading } = useUserRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -107,26 +112,69 @@ const DashboardLayouts = () => {
               <MdPerson className="inline mr-2" /> Update Profile
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/dashboard/activeRiders"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-bold" : ""
-              }
-            >
-              <MdCheckCircle className="inline mr-2" /> Active Riders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/dashboard/pendingRiders"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-bold" : ""
-              }
-            >
-              <MdHourglassEmpty className="inline mr-2" /> Pending Riders
-            </NavLink>
-          </li>
+
+          {/* rider role */}
+          {!authLoading && role === "rider" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/pendingDeliveries"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  <MdPending className="inline mr-2" /> Pending Deliveries
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {/* admin role */}
+          {!authLoading && role === "admin" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/activeRiders"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  <MdCheckCircle className="inline mr-2" /> Active Riders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/pendingRiders"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  <MdHourglassEmpty className="inline mr-2" /> Pending Riders
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/makeAdmin"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  <FaUserShield className="inline mr-2" /> Make Admin
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/assignRider"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  <FaMotorcycle className="inline mr-2" /> Assign Rider
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

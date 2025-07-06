@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 import AuthProvider from "./Context/AuthContext/AuthProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import AdminRoute from "./routes/AdminRoute.jsx";
 
 AOS.init();
 const queryClient = new QueryClient();

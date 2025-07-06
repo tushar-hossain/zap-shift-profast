@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { FaUserTimes } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
@@ -22,6 +21,8 @@ export default function ActiveRiders() {
       return data;
     },
   });
+
+  // search riders
 
   // useEffect(() => {
   //   const filtered = riders.filter((rider) =>
